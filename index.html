@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery from File</title>
+    <style>
+        .image-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .image-gallery img {
+            width: 200px;
+            height: auto;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            transition: transform 0.2s;
+        }
+
+        .image-gallery img:hover {
+            transform: scale(1.05);
+        }
+
+        input[type="file"] {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Image Gallery</h1>
+
+    <input type="file" id="fileInput" accept=".txt" />
+    <button onclick="startAutoRefresh()">Start Auto Refresh</button>
+
+    <div class="image-gallery" id="gallery"></div>
+
+    <script>
+        let file;
+        let autoRefreshInterval;
+
+        function readFile() {
+            if (!file) {
+                alert("Please select a file.");
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const fileContent = event.target.result;
+                const links = fileContent.split('\n').filter(link => link.trim() !== '');
+
+                const gallery = document.getElementById('gallery');
+                gallery.innerHTML = '';  // Clear the gallery
+
+                links.forEach(link => {
+                    const anchor = document.createElement('a');
+                    anchor.href = link.trim();  // The link to go to when image is clicked
+
+                    const img = document.createElement('img');
+                    img.src = link.trim();  // The image source
+                    img.alt = 'Image';      // Alt text for image
+
+                    anchor.appendChild(img);
+                    gallery.appendChild(anchor);
+                });
+            };
+
+            reader.readAsText(file);
+        }
+
+        function startAutoRefresh() {
+            const fileInput = document.getElementById('fileInput');
+            file = fileInput.files[0];
+
+            if (!file) {
+                alert("Please select a file.");
+                return;
+            }
+
+            // Stop any existing auto-refresh
+            if (autoRefreshInterval) {
+                clearInterval(autoRefreshInterval);
+            }
+
+            // Start refreshing every 10 seconds
+            autoRefreshInterval = setInterval(readFile, 10000);
+
+            // Immediately read the file when the auto-refresh starts
+            readFile();
+        }
+    </script>
+
+</body>
+</html>
