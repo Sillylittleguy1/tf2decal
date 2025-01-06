@@ -124,7 +124,7 @@ def fetch_player_data(steam_id):
 
 def fetch_friends_and_process(steam_id, visited_players, checked_users):
     """Fetch the user's friends and process them (check privacy and TF2 ownership)."""
-    if steam_id in visited_players:
+    if steam_id in checked_users:
         return  # Skip if we've already visited or fully processed this player
 
     friends_data = make_request_with_retry(f"https://api.steampowered.com/ISteamUser/GetFriendList/v1/?key={STEAM_API_KEY}&steamid={steam_id}&relationship=friend")
@@ -168,11 +168,14 @@ def process_tf2_players():
 
     visited_players = load_visited_players()
     checked_users = load_checked_users()
-
+    print(player_ids)
     for steam_id in player_ids:
         if steam_id not in checked_users:
             get_decalid(steam_id)
             fetch_friends_and_process(steam_id, visited_players, checked_users)
-
+            save_to_file(CHECKED_USERS_FILE, steam_id)
+            return 
 if __name__ == "__main__":
-    process_tf2_players()
+    while True:
+        process_tf2_players()
+    
