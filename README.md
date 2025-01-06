@@ -1,7 +1,2 @@
-script iterates through every public tf2 user in existance, takes their decal, moves onto the next
-
-
-IT is most likely horribly inefficient, spotty, and unoptomized. but it works. and thats all that really matters
-
-
-throughout heaven and earth, i alone am the programming one.
+This script is for my booru decal website, that hosts decal images.
+It recusively goes through every public tf2 user in existance to find images.
