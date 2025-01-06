@@ -2,7 +2,7 @@ import requests
 import json
 import time
 
-STEAM_API_KEY = '23C838AA4B6470A7841F3DED59A10AB0'  # Your Steam API key
+STEAM_API_KEY = '####################'  # Your Steam API key
 ROOT_STEAM_ID = '76561199199514290'  # The Steam ID to default to on first startup
 CHECKPOINT_STEAM_ID = 0 # the last processed id in case of a premature exit
 MAX_RETRIES = 10  # Maximum number of retries
