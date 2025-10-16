@@ -10,7 +10,7 @@ import logging
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import sys
 
-STEAM_API_KEY = '23C838AA4B6470A7841F3DED59A10AB0'
+STEAM_API_KEY = '############'
 STEAM_ROOT = '76561199199514290'  # Arbatrairy Steam ID to start with if the players file is empty
 MAX_RETRIES = 3
 RETRY_DELAY = 2
